@@ -3,7 +3,9 @@ module Convulse
      include Singleton
 
      def initialize
-       @lru = ::LruRedux::TTL::Cache.new(100, 11)
+       size = Convulse.configuration.cache_size
+       ttl = Convulse.configuration.cache_ttl
+       @lru = ::LruRedux::TTL::Cache.new(size, ttl)
      end
 
      def [](key)
