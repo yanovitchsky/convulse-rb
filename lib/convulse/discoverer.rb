@@ -1,6 +1,6 @@
 module Convulse
   class Discoverer
-    BASE_URL = "http://consul.service.consul:8500/v1/catalog/service/"
+    BASE_URL = "#{Convulse.configuration.consul_uri}/v1/catalog/service/"
 
     def fetch_service(service)
       service_name = is_a?(String) ? service : service.to_s
