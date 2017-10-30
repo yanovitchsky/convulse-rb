@@ -1,6 +1,9 @@
 module Convulse
   class Discoverer
-    BASE_URL = "#{Convulse.configuration.consul_uri}/v1/catalog/service/"
+
+    def base_uri
+      @base_uri ||= "#{Convulse.configuration.consul_uri}/v1/catalog/service/"
+    end
 
     def fetch_service(service)
       service_name = is_a?(String) ? service : service.to_s
@@ -14,7 +17,7 @@ module Convulse
     private
 
     def query_consul(service)
-      url = "#{BASE_URL}#{service}"
+      url = "#{base_uri}#{service}"
       res = HTTParty.get(url)
       case res.code
       when 200
